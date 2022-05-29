@@ -16,19 +16,13 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Nav from "../components/Nav";
-
-function createData(name: number, calories: string, fat: number) {
-  return { name, calories, fat };
-}
-
-const rows = [
-  createData(2, "Ice cream sandwich", 237),
-  createData(2, "Ice cream sandwich", 237),
-];
+import { TTopUser } from "../types";
 
 const Leaderboard = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+
+  const rows = sessionStorage.getItem("top-users");
+
   return (
     <Box
       sx={{
@@ -68,11 +62,19 @@ const Leaderboard = () => {
           }}
         >
           <Stack direction="column" alignItems="center" spacing={-1}>
-            <Typography variant="h4" component="h4">
+            <Typography
+              variant="h4"
+              component="h4"
+              sx={{ fontFamily: "Trattatello" }}
+            >
               TOP BEST KING
             </Typography>
 
-            <Typography variant="h6" component="h6">
+            <Typography
+              variant="h6"
+              component="h6"
+              sx={{ fontFamily: "Trattatello" }}
+            >
               OF ALL TIME
             </Typography>
           </Stack>
@@ -84,57 +86,66 @@ const Leaderboard = () => {
               sx={{ background: "#ffeed7" }}
             >
               <TableBody>
-                {rows.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell
-                      sx={{
-                        textAlign: "center",
+                {rows &&
+                  rows.length > 0 &&
+                  JSON.parse(rows).map((row: TTopUser, index: number) => (
+                    <TableRow key={row.name}>
+                      <TableCell
+                        sx={{
+                          textAlign: "center",
 
-                        borderBottom: "1px solid #000",
-                        borderTop: "1px solid #000",
+                          borderBottom: "1px solid #000",
+                          borderTop: "1px solid #000",
 
-                        fontSize: "1rem",
+                          fontSize: "16px",
 
-                        letterSpacing: "0",
+                          letterSpacing: "0",
 
-                        lineHeight: "2",
-                      }}
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        textAlign: "center",
+                          lineHeight: "2",
 
-                        border: "1px solid #000",
+                          fontFamily: "Trattatello",
+                        }}
+                      >
+                        {index + 1}
+                      </TableCell>
 
-                        fontSize: "1rem",
+                      <TableCell
+                        sx={{
+                          textAlign: "center",
 
-                        letterSpacing: "0",
+                          border: "1px solid #000",
 
-                        lineHeight: "2",
-                      }}
-                    >
-                      {row.calories}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        textAlign: "center",
+                          fontSize: "16px",
 
-                        borderBottom: "1px solid #000",
-                        borderTop: "1px solid #000",
+                          letterSpacing: "0",
 
-                        fontSize: "1rem",
+                          lineHeight: "2",
 
-                        letterSpacing: "0",
+                          fontFamily: "Trattatello",
+                        }}
+                      >
+                        {row.name}
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          textAlign: "center",
 
-                        lineHeight: "2",
-                      }}
-                    >
-                      {row.fat}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                          borderBottom: "1px solid #000",
+                          borderTop: "1px solid #000",
+
+                          fontSize: "16px",
+
+                          letterSpacing: "0",
+
+                          lineHeight: "2",
+
+                          fontFamily: "Trattatello",
+                        }}
+                      >
+                        {row.score}
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -146,7 +157,10 @@ const Leaderboard = () => {
             sx={{ width: " 85%" }}
           >
             <Stack direction="column" alignItems="center">
-              <Box sx={{ width: "64px" }}>
+              <Box
+                sx={{ width: "64px", cursor: "pointer" }}
+                onClick={() => navigate("/game")}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -157,11 +171,16 @@ const Leaderboard = () => {
                 />
               </Box>
 
-              <Typography variant="body1">Shop</Typography>
+              <Typography variant="body1" sx={{ fontFamily: "Trattatello" }}>
+                Shop
+              </Typography>
             </Stack>
 
             <Stack direction="column" alignItems="center">
-              <Box sx={{ width: "64px" }}>
+              <Box
+                sx={{ width: "64px", cursor: "pointer" }}
+                onClick={() => navigate("/game")}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -172,11 +191,16 @@ const Leaderboard = () => {
                 />
               </Box>
 
-              <Typography variant="body1">Shop</Typography>
+              <Typography variant="body1" sx={{ fontFamily: "Trattatello" }}>
+                Replay
+              </Typography>
             </Stack>
 
             <Stack direction="column" alignItems="center">
-              <Box sx={{ width: "64px" }}>
+              <Box
+                sx={{ width: "64px", cursor: "pointer" }}
+                onClick={() => navigate("/game")}
+              >
                 <img
                   src={
                     process.env.PUBLIC_URL +
@@ -187,7 +211,9 @@ const Leaderboard = () => {
                 />
               </Box>
 
-              <Typography variant="body1">Shop</Typography>
+              <Typography variant="body1" sx={{ fontFamily: "Trattatello" }}>
+                Share
+              </Typography>
             </Stack>
           </Stack>
         </Box>

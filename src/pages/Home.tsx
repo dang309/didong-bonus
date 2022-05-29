@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 
 import Slider from "react-slick";
+import Nav from "../components/Nav";
 
 const settings = {
   dots: true,
@@ -83,92 +84,53 @@ const Home = () => {
           <Box
             sx={{
               width: "100%",
-              height: "auto",
               position: "absolute",
-              top: 0,
+              top: "0.19%",
               left: 0,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <Box
               sx={{
-                width: "36px",
+                width: "85%",
                 height: "auto",
-                position: "absolute",
-                left: "4%",
 
-                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
-              onClick={() => navigate("/")}
             >
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
-                }
-                alt=""
-                style={{
-                  width: "100%",
+              <Box
+                sx={{
+                  width: "36px",
+                  height: "auto",
+
+                  cursor: "pointer",
+
+                  display: "flex",
+                  alignItems: " center",
                 }}
-              />
+                onClick={() => navigate("/")}
+              >
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
+                  }
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                />
+              </Box>
+
+              <Nav />
+
+              <Box />
             </Box>
           </Box>
         </Box>
-
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={4}
-          sx={{
-            position: "absolute",
-            top: "1%",
-            left: "42%",
-          }}
-        >
-          <Typography
-            onClick={() => navigate("/instruction")}
-            style={{
-              color: tab === "instruction" ? "yellow" : "white",
-              textDecoration: "none",
-
-              fontSize: "20px",
-
-              cursor: "pointer",
-
-              fontFamily: "EnchantedLand",
-            }}
-          >
-            Instruction
-          </Typography>
-          <Typography
-            onClick={() => navigate("/leaderboard")}
-            style={{
-              color: tab === "score" ? "yellow" : "white",
-              textDecoration: "none",
-
-              fontSize: "20px",
-
-              cursor: "pointer",
-
-              fontFamily: "EnchantedLand",
-            }}
-          >
-            Score
-          </Typography>
-          <Typography
-            onClick={() => navigate("/about")}
-            style={{
-              color: tab === "about" ? "yellow" : "white",
-              textDecoration: "none",
-
-              fontSize: "20px",
-
-              cursor: "pointer",
-
-              fontFamily: "EnchantedLand",
-            }}
-          >
-            About
-          </Typography>
-        </Stack>
       </TinderCard>
     </Box>
   );
