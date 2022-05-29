@@ -95,16 +95,15 @@ const Leaderboard = () => {
               </Typography>
             </Stack>
 
-            <TableContainer sx={{ width: "85%", margin: "16px 0 16px 0" }}>
-              <Table
-                size="small"
-                aria-label="simple table"
-                sx={{ background: "#ffeed7" }}
-              >
-                <TableBody>
-                  {rows &&
-                    rows.length > 0 &&
-                    JSON.parse(rows)
+            {rows && rows.length > 0 && (
+              <TableContainer sx={{ width: "85%", margin: "16px 0 16px 0" }}>
+                <Table
+                  size="small"
+                  aria-label="simple table"
+                  sx={{ background: "#ffeed7" }}
+                >
+                  <TableBody>
+                    {JSON.parse(rows)
                       .sort((a: TTopUser, b: TTopUser) => b.score - a.score)
                       .slice(0, 10)
                       .map((row: TTopUser, index: number) => (
@@ -174,9 +173,24 @@ const Leaderboard = () => {
                           </TableCell>
                         </TableRow>
                       ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+
+            {((rows && rows.length === 0) || !rows) && (
+              <Box sx={{ margin: "16px 0 16px 0" }}>
+                <Typography
+                  sx={{
+                    fontFamily: "Trattatello",
+                    fontSize: "20px",
+                    color: "#999",
+                  }}
+                >
+                  No Players.
+                </Typography>
+              </Box>
+            )}
 
             <Stack
               direction="row"
