@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
@@ -13,15 +14,14 @@
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
-    "framer": "^2.1.2",
-    "framer-motion": "^6.3.4",
+    "lodash": "^4.17.21",
     "react": "^18.1.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.1.0",
-    "react-draggable": "^4.4.5",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-tinder-card": "^1.4.5",
+    "slick-carousel": "^1.8.1",
     "typescript": "^4.7.2",
     "web-vitals": "^2.1.4"
   },
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-slick": "^0.23.8"
   }
 }

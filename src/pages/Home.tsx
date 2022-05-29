@@ -1,90 +1,129 @@
 import React from "react";
 
-import { Box, Stack } from "@mui/material";
-
-import { motion } from "framer-motion";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-import { Typography } from "@mui/material";
+import TinderCard from "react-tinder-card";
 
-import Draggable from "react-draggable";
+import Slider from "react-slick";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  // slidesToShow: 1,
+  // slidesToScroll: 1,
+  // adaptiveHeight: true,
+  // arrows: false,
+};
 
 const Home = () => {
   const navigate = useNavigate();
 
   const [tab, setTab] = React.useState<string>("home");
 
+  const onSwipe = (direction: any) => {
+    console.log("You swiped: " + direction);
+  };
+
+  const onCardLeftScreen = (myIdentifier: any) => {
+    console.log(myIdentifier + " left the screen");
+  };
+
   const getImg = (tab: string) => {
     let result = "";
     if (tab === "home") {
       result = process.env.PUBLIC_URL + "/static/images/home.png";
     } else if (tab === "instruction") {
-      result = process.env.PUBLIC_URL + "/static/images/instruction.png";
+      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
     } else if (tab === "score") {
-      result = process.env.PUBLIC_URL + "/static/images/instruction.png";
+      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
     } else if (tab === "about") {
-      result = process.env.PUBLIC_URL + "/static/images/instruction.png";
+      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
     }
     return result;
   };
 
-  const handleStartDrag = (e: React.DragEvent<HTMLImageElement>) => {
-    console.log("Start", e);
-  };
-
-  const handleEndDrag = (e: React.DragEvent<HTMLImageElement>) => {
-    console.log("End", e);
-  };
-
   return (
-    <Draggable
-      defaultPosition={{ x: 0, y: 0 }}
-      // onStart={(e) => console.log(e)}
-      handle="#handle"
-      position={undefined}
-      grid={[25, 25]}
-      scale={1}
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+      }}
     >
-      <Box
-        sx={{
-          height: "95%",
-          width: "100%",
-        }}
-        id="handle"
+      {/* @ts-ignore */}
+      <TinderCard
+        className="tinder-card"
+        flickOnSwipe={false}
+        preventSwipe={["bottom"]}
       >
         <Box
           sx={{
             height: "100%",
-            width: "100%",
+            width: "auto",
             display: "flex",
             justifyContent: "center",
+
+            position: "relative",
           }}
         >
-          <img
-            src={getImg(tab)}
-            alt="home"
-            style={{
-              height: "100%",
-              width: "auto",
+          <Box>
+            <img
+              src={process.env.PUBLIC_URL + "/static/images/home.png"}
+              alt="home"
+              style={{
+                height: "100%",
+                width: "auto",
+              }}
+            />
+          </Box>
 
-              // position: "absolute",
-              // top: "50%",
-              // left: "50%",
-
-              // transform: "translate(-50%, -50%)",
+          <Box
+            sx={{
+              width: "100%",
+              height: "auto",
+              position: "absolute",
+              top: 0,
+              left: 0,
             }}
-          />
+          >
+            <Box
+              sx={{
+                width: "36px",
+                height: "auto",
+                position: "absolute",
+                left: "4%",
+
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/")}
+            >
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
+                }
+                alt=""
+                style={{
+                  width: "100%",
+                }}
+              />
+            </Box>
+          </Box>
         </Box>
 
-        {/* <Stack
+        <Stack
           direction="row"
           alignItems="center"
           spacing={4}
-          sx={{ position: "absolute", top: "2.2%", left: "30%" }}
+          sx={{
+            position: "absolute",
+            top: "1.3%",
+            left: "43.5%",
+          }}
         >
           <Typography
-            onClick={() => setTab("instruction")}
+            onClick={() => navigate("/instruction")}
             style={{
               color: tab === "instruction" ? "yellow" : "white",
               textDecoration: "none",
@@ -97,7 +136,7 @@ const Home = () => {
             Instruction
           </Typography>
           <Typography
-            onClick={() => setTab("score")}
+            onClick={() => navigate("/leaderboard")}
             style={{
               color: tab === "score" ? "yellow" : "white",
               textDecoration: "none",
@@ -110,7 +149,7 @@ const Home = () => {
             Score
           </Typography>
           <Typography
-            onClick={() => setTab("about")}
+            onClick={() => navigate("/about")}
             style={{
               color: tab === "about" ? "yellow" : "white",
               textDecoration: "none",
@@ -122,9 +161,9 @@ const Home = () => {
           >
             About
           </Typography>
-        </Stack> */}
-      </Box>
-    </Draggable>
+        </Stack>
+      </TinderCard>
+    </Box>
   );
 };
 

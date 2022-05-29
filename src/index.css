@@ -22,3 +22,21 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+.tinder-card {
+  height: 100%;
+  width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+}
+
+.tinder-card-game {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}

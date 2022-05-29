@@ -5,8 +5,8 @@ import App from "./App";
 
 import { BrowserRouter } from "react-router-dom";
 
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,9 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <DndProvider backend={HTML5Backend}>
-        <App />
-      </DndProvider>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );
