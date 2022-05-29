@@ -37,22 +37,29 @@ const Game = () => {
 
   const [error, setError] = React.useState<string>("");
 
+  const [loading, setLoading] = React.useState<boolean>(true);
+
   const handleSwipe = (dir: string) => {
     switch (dir) {
       case "right":
         setScore(
           (prev) => prev + tenRandomQuestions.current[questionIdx].answer.yes
         );
+        setShowHint(false);
         setQuestionIdx((prev) => prev + 1);
         break;
       case "left":
         setScore(
           (prev) => prev + tenRandomQuestions.current[questionIdx].answer.no
         );
+        setShowHint(false);
         setQuestionIdx((prev) => prev + 1);
         break;
       case "up":
         setShowHint(true);
+        break;
+      case "down":
+        setShowHint(false);
         break;
       default:
         break;
@@ -96,6 +103,10 @@ const Game = () => {
   };
 
   React.useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
+
+  React.useEffect(() => {
     if (questionIdx === 9) {
       setShowSubmitBg(true);
     }
@@ -108,85 +119,184 @@ const Game = () => {
         width: "auto",
       }}
     >
-      <Box
-        sx={{
-          height: "100%",
-          width: "auto",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {/* @ts-ignore */}
-        <TinderCard
-          key={tenRandomQuestions.current[questionIdx].id}
-          className="tinder-card-game"
-          flickOnSwipe={false}
-          swipeRequirementType="position"
-          onSwipe={handleSwipe}
+      {loading ? (
+        <img
+          src={process.env.PUBLIC_URL + "/static/images/loading.png"}
+          alt=""
+          style={{ height: "100%", width: " auto" }}
+        />
+      ) : (
+        <Box
+          sx={{
+            height: "100%",
+            width: "auto",
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
-          <Box sx={{ height: "100%", width: "auto" }}>
-            {showSubmitBg ? (
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/static/images/characters/king.png"
-                }
-                alt=""
-                style={{ height: "100%", width: " auto" }}
-              />
-            ) : (
-              <img
-                src={tenRandomQuestions.current[questionIdx].img}
-                alt=""
-                style={{ height: "100%", width: " auto" }}
-              />
-            )}
-          </Box>
-
-          {/* Dialog */}
-          <Box
-            sx={{
-              height: "auto",
-              width: "100%",
-              position: "absolute",
-              top: "8%",
-              left: 0,
-              zIndex: showHint ? 0 : 2,
-            }}
+          {/* @ts-ignore */}
+          <TinderCard
+            key={tenRandomQuestions.current[questionIdx].id}
+            className="tinder-card-game"
+            flickOnSwipe={false}
+            swipeRequirementType="position"
+            onSwipe={handleSwipe}
+            swipeThreshold={128}
           >
-            {!showSubmitBg && (
-              <Box sx={{ position: "relative" }}>
+            <Box sx={{ height: "100%", width: "auto", cursor: "grabbing" }}>
+              {showSubmitBg ? (
                 <img
                   src={
                     process.env.PUBLIC_URL +
-                    "/static/images/game/dialog-box.png"
+                    "/static/images/characters/king.png"
                   }
                   alt=""
-                  style={{ height: "auto", width: "100%" }}
+                  style={{ height: "100%", width: " auto" }}
                 />
+              ) : (
+                <img
+                  src={tenRandomQuestions.current[questionIdx].img}
+                  alt=""
+                  style={{ height: "100%", width: " auto" }}
+                />
+              )}
+            </Box>
 
-                <Box sx={{ position: "absolute", top: "8%", left: "4%" }}>
-                  <Typography
-                    sx={{ fontFamily: "Trattatello", fontSize: "16px" }}
-                  >
-                    {tenRandomQuestions.current[questionIdx].dialogContent}
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-          </Box>
-
-          {/* Question */}
-          {!showSubmitBg && (
+            {/* Dialog */}
             <Box
               sx={{
                 height: "auto",
                 width: "100%",
                 position: "absolute",
-                bottom: 0,
+                top: "8%",
                 left: 0,
                 zIndex: showHint ? 0 : 2,
               }}
             >
+              {!showSubmitBg && (
+                <Box sx={{ position: "relative" }}>
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/static/images/game/dialog-box.png"
+                    }
+                    alt=""
+                    style={{ height: "auto", width: "100%" }}
+                  />
+
+                  <Box sx={{ position: "absolute", top: "8%", left: "4%" }}>
+                    <Typography
+                      sx={{ fontFamily: "Trattatello", fontSize: "16px" }}
+                    >
+                      {tenRandomQuestions.current[questionIdx].dialogContent}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </Box>
+
+            {/* Question */}
+            {!showSubmitBg && (
+              <Box
+                sx={{
+                  height: "auto",
+                  width: "100%",
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  zIndex: showHint ? 0 : 2,
+                }}
+              >
+                <Box
+                  sx={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box sx={{ position: "relative" }}>
+                    <img
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/static/images/game/help-box.png"
+                      }
+                      alt=""
+                      style={{ height: "auto", width: "100%" }}
+                    />
+                  </Box>
+
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      zIndex: showHint ? 0 : 999,
+                      width: "100%",
+                      height: "100%",
+
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: "70%",
+                        height: "80%",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Trattatello",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {tenRandomQuestions.current[questionIdx].question}
+                      </Typography>
+                    </Box>
+
+                    <Box>
+                      <img
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/static/images/game/${
+                            showHint ? "joker" : "joker-up"
+                          }.png`
+                        }
+                        alt=""
+                        style={{ height: "100%", width: "64px" }}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            )}
+
+            {!showSubmitBg && (
+              <Box
+                sx={{
+                  height: "auto",
+                  width: "32px",
+                  position: "absolute",
+                  top: "1%",
+                  left: `${6 + questionIdx * 9}%`,
+                  zIndex: showHint ? 0 : 999,
+
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/")}
+              >
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
+                  }
+                  alt=""
+                  style={{ height: "auto", width: "100%" }}
+                />
+              </Box>
+            )}
+
+            <Backdrop open={showHint}>
               <Box
                 sx={{
                   position: "relative",
@@ -194,14 +304,14 @@ const Game = () => {
                   justifyContent: "center",
                 }}
               >
-                <Box sx={{ position: "relative" }}>
+                <Box>
                   <img
                     src={
                       process.env.PUBLIC_URL +
                       "/static/images/game/help-box.png"
                     }
                     alt=""
-                    style={{ height: "auto", width: "100%" }}
+                    style={{ height: "auto", width: "300px" }}
                   />
                 </Box>
 
@@ -221,140 +331,55 @@ const Game = () => {
                 >
                   <Box
                     sx={{
-                      width: "70%",
-                      height: "80%",
+                      width: "90%",
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-around",
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontFamily: "Trattatello",
-                        fontSize: "16px",
-                      }}
-                    >
-                      {tenRandomQuestions.current[questionIdx].question}
-                    </Typography>
-                  </Box>
-
-                  <Box onClick={() => setShowHint(true)}>
-                    <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        `/static/images/game/${
-                          showHint ? "joker" : "joker-up"
-                        }.png`
-                      }
-                      alt=""
-                      style={{ height: "100%", width: "64px" }}
-                    />
+                    <Stack direction="row" spacing={1}>
+                      <TipsAndUpdatesIcon htmlColor="#FAC213" />
+                      <Typography
+                        sx={{
+                          fontFamily: "Trattatello",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {data[questionIdx].info}
+                      </Typography>
+                    </Stack>
                   </Box>
                 </Box>
               </Box>
-            </Box>
-          )}
+            </Backdrop>
+          </TinderCard>
 
-          {!showSubmitBg && (
-            <Box
-              sx={{
-                height: "auto",
-                width: "32px",
-                position: "absolute",
-                top: "1%",
-                left: `${6 + questionIdx * 9}%`,
-                zIndex: showHint ? 0 : 999,
-              }}
-            >
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
-                }
-                alt=""
-                style={{ height: "auto", width: "100%" }}
-              />
-            </Box>
-          )}
-
-          <Backdrop open={showHint} onClick={() => setShowHint(false)}>
-            <Box
-              sx={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Box>
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "/static/images/game/help-box.png"
-                  }
-                  alt=""
-                  style={{ height: "auto", width: "300px" }}
-                />
-              </Box>
-
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  zIndex: showHint ? 0 : 999,
-                  width: "100%",
-                  height: "100%",
-
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "90%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Stack direction="row" spacing={1}>
-                    <TipsAndUpdatesIcon htmlColor="#FBCB0A" />
-                    <Typography
-                      sx={{
-                        fontFamily: "Trattatello",
-                        fontSize: "16px",
-                      }}
-                    >
-                      {data[questionIdx].info}
-                    </Typography>
-                  </Stack>
-                </Box>
-              </Box>
-            </Box>
-          </Backdrop>
-        </TinderCard>
-
-        <Box
-          sx={{
-            width: "100%",
-            position: "absolute",
-            top: "0.4%",
-            left: 0,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
           <Box
             sx={{
-              width: "85%",
-              height: "auto",
-
+              width: "100%",
+              position: "absolute",
+              top: "0.4%",
+              left: 0,
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "center",
             }}
           >
-            <Box />
+            <Box
+              sx={{
+                width: "85%",
+                height: "auto",
+
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
 
       <Backdrop open={showSubmitBg}>
         <Box
@@ -398,7 +423,7 @@ const Game = () => {
                 justifyContent: "space-around",
               }}
             >
-              <Stack direction="column" alignItems="center" spacing={2}>
+              <Stack direction="column" alignItems="center" spacing={1.5}>
                 <Stack direction="column" alignItems="center">
                   <Typography
                     variant="h5"
@@ -422,13 +447,15 @@ const Game = () => {
                 <Stack
                   direction="column"
                   alignItems="center"
-                  spacing={1}
+                  spacing={0.5}
                   sx={{ width: "100%" }}
                 >
                   <Typography
-                    variant="body1"
+                    variant="h6"
                     sx={{
                       fontFamily: "Trattatello",
+
+                      color: "#F77E21",
                     }}
                   >
                     Your Score: {score}

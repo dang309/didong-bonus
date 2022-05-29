@@ -22,29 +22,11 @@ const settings = {
 const Home = () => {
   const navigate = useNavigate();
 
-  const [tab, setTab] = React.useState<string>("home");
+  const [loading, setLoading] = React.useState<boolean>(true);
 
-  const onSwipe = (direction: any) => {
-    console.log("You swiped: " + direction);
-  };
-
-  const onCardLeftScreen = (myIdentifier: any) => {
-    console.log(myIdentifier + " left the screen");
-  };
-
-  const getImg = (tab: string) => {
-    let result = "";
-    if (tab === "home") {
-      result = process.env.PUBLIC_URL + "/static/images/home.png";
-    } else if (tab === "instruction") {
-      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
-    } else if (tab === "score") {
-      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
-    } else if (tab === "about") {
-      result = process.env.PUBLIC_URL + "/static/images/blank-paper.png";
-    }
-    return result;
-  };
+  React.useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
 
   return (
     <Box
@@ -59,6 +41,8 @@ const Home = () => {
         flickOnSwipe={false}
         preventSwipe={["bottom"]}
         onSwipe={() => navigate("/game")}
+        swipeRequirementType="position"
+        swipeThreshold={128}
       >
         <Box
           sx={{
@@ -71,65 +55,79 @@ const Home = () => {
           }}
         >
           <Box>
-            <img
-              src={process.env.PUBLIC_URL + "/static/images/home.png"}
-              alt="home"
-              style={{
-                height: "100%",
-                width: "auto",
-              }}
-            />
+            {loading ? (
+              <img
+                src={process.env.PUBLIC_URL + "/static/images/loading.png"}
+                alt="home"
+                style={{
+                  height: "100%",
+                  width: "auto",
+                }}
+              />
+            ) : (
+              <img
+                src={process.env.PUBLIC_URL + "/static/images/home.png"}
+                alt="home"
+                style={{
+                  height: "100%",
+                  width: "auto",
+                }}
+              />
+            )}
           </Box>
 
-          <Box
-            sx={{
-              width: "100%",
-              position: "absolute",
-              top: "0.19%",
-              left: 0,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          {!loading && (
             <Box
               sx={{
-                width: "85%",
-                height: "auto",
-
+                width: "100%",
+                position: "absolute",
+                top: "0.19%",
+                left: 0,
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
               }}
             >
               <Box
                 sx={{
-                  width: "36px",
+                  width: "85%",
                   height: "auto",
 
-                  cursor: "pointer",
-
                   display: "flex",
-                  alignItems: " center",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
-                onClick={() => navigate("/")}
               >
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "/static/images/sas-crown-icon.png"
-                  }
-                  alt=""
-                  style={{
-                    width: "100%",
+                <Box
+                  sx={{
+                    width: "36px",
                     height: "auto",
+
+                    cursor: "pointer",
+
+                    display: "flex",
+                    alignItems: " center",
                   }}
-                />
+                  onClick={() => navigate("/")}
+                >
+                  <img
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/static/images/sas-crown-icon.png"
+                    }
+                    alt=""
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </Box>
+
+                <Nav />
+
+                <Box />
               </Box>
-
-              <Nav />
-
-              <Box />
             </Box>
-          </Box>
+          )}
         </Box>
       </TinderCard>
     </Box>
