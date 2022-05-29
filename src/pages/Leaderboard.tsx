@@ -13,7 +13,9 @@ import {
   Stack,
 } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import Nav from "../components/Nav";
 
 function createData(name: number, calories: string, fat: number) {
   return { name, calories, fat };
@@ -26,6 +28,7 @@ const rows = [
 
 const Leaderboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <Box
       sx={{
@@ -233,47 +236,7 @@ const Leaderboard = () => {
               />
             </Box>
 
-            <Stack direction="row" alignItems="center" spacing={4} sx={{}}>
-              <Typography
-                onClick={() => navigate("/instruction")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Instruction
-              </Typography>
-              <Typography
-                onClick={() => navigate("/leaderboard")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Score
-              </Typography>
-              <Typography
-                onClick={() => navigate("/about")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                About
-              </Typography>
-            </Stack>
+            <Nav />
 
             <Box />
           </Box>

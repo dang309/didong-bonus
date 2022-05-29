@@ -2,9 +2,11 @@ import React from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, matchPath } from "react-router-dom";
 
 import Slider from "react-slick";
+
+import Nav from "../components/Nav";
 
 const settings = {
   dots: true,
@@ -18,6 +20,8 @@ const settings = {
 
 const Instruction = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <Box
       sx={{
@@ -141,47 +145,7 @@ const Instruction = () => {
               />
             </Box>
 
-            <Stack direction="row" alignItems="center" spacing={4} sx={{}}>
-              <Typography
-                onClick={() => navigate("/instruction")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Instruction
-              </Typography>
-              <Typography
-                onClick={() => navigate("/leaderboard")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Score
-              </Typography>
-              <Typography
-                onClick={() => navigate("/about")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                About
-              </Typography>
-            </Stack>
+            <Nav />
 
             <Box />
           </Box>

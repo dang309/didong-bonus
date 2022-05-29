@@ -11,7 +11,9 @@ import {
 } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import Nav from "../components/Nav";
 
 const authors = [
   "André Calderolli, Brazil",
@@ -24,12 +26,14 @@ const authors = [
 
 const About = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <Box
       sx={{
         height: "100%",
         width: "auto",
       }}
+      className="about-box"
     >
       <Box
         sx={{
@@ -75,11 +79,19 @@ const About = () => {
               sx={{ maxHeight: "100%", overflowY: "auto" }}
             >
               <Stack>
-                <Typography variant="h6" component="h6">
-                  Project
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
+                  ·Project
                 </Typography>
 
-                <Typography variant="body1" component="p">
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
                   “Dear as Salt” is a web-based game inspired by the tale Dear
                   as salt (or Bene come il sale, in italian) from Italo
                   Calvino’s Italian Fables, published for the first time in
@@ -91,11 +103,19 @@ const About = () => {
               </Stack>
 
               <Stack>
-                <Typography variant="h6" component="h6">
-                  Content
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
+                  ·Content
                 </Typography>
 
-                <Typography variant="body1" component="p">
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
                   In the game, you are the king and make your choices with the
                   goal of reigning the kingdom as well as possible. Because salt
                   is the most important element in the story, many of the
@@ -108,11 +128,19 @@ const About = () => {
               </Stack>
 
               <Stack>
-                <Typography variant="h6" component="h6">
+                <Typography
+                  variant="h6"
+                  component="h6"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
                   ·Team
                 </Typography>
 
-                <Typography variant="body1" component="p">
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ fontFamily: "Trattatello" }}
+                >
                   We are Teotihuacan, one of the groups of the Sociology of
                   Media class for the academic year of 2019/2020 of the
                   Communication Design Master of Science Program. We come from
@@ -129,7 +157,14 @@ const About = () => {
                             sx={{ fontSize: "12px" }}
                           />
                         </ListItemIcon>
-                        <ListItemText primary={author} />
+                        <ListItemText
+                          primary={author}
+                          sx={{
+                            "& span": {
+                              fontFamily: "Trattatello",
+                            },
+                          }}
+                        />
                       </ListItem>
                     );
                   })}
@@ -183,47 +218,7 @@ const About = () => {
               />
             </Box>
 
-            <Stack direction="row" alignItems="center" spacing={4} sx={{}}>
-              <Typography
-                onClick={() => navigate("/instruction")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Instruction
-              </Typography>
-              <Typography
-                onClick={() => navigate("/leaderboard")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                Score
-              </Typography>
-              <Typography
-                onClick={() => navigate("/about")}
-                style={{
-                  color: true ? "yellow" : "white",
-                  textDecoration: "none",
-
-                  fontSize: "16px",
-
-                  cursor: "pointer",
-                }}
-              >
-                About
-              </Typography>
-            </Stack>
+            <Nav />
 
             <Box />
           </Box>

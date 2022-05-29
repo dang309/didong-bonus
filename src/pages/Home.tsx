@@ -57,6 +57,7 @@ const Home = () => {
         className="tinder-card"
         flickOnSwipe={false}
         preventSwipe={["bottom"]}
+        onSwipe={() => navigate("/game")}
       >
         <Box
           sx={{
@@ -118,8 +119,8 @@ const Home = () => {
           spacing={4}
           sx={{
             position: "absolute",
-            top: "1.3%",
-            left: "43.5%",
+            top: "1%",
+            left: "42%",
           }}
         >
           <Typography
@@ -128,9 +129,11 @@ const Home = () => {
               color: tab === "instruction" ? "yellow" : "white",
               textDecoration: "none",
 
-              fontSize: "16px",
+              fontSize: "20px",
 
               cursor: "pointer",
+
+              fontFamily: "EnchantedLand",
             }}
           >
             Instruction
@@ -141,9 +144,11 @@ const Home = () => {
               color: tab === "score" ? "yellow" : "white",
               textDecoration: "none",
 
-              fontSize: "16px",
+              fontSize: "20px",
 
               cursor: "pointer",
+
+              fontFamily: "EnchantedLand",
             }}
           >
             Score
@@ -154,9 +159,11 @@ const Home = () => {
               color: tab === "about" ? "yellow" : "white",
               textDecoration: "none",
 
-              fontSize: "16px",
+              fontSize: "20px",
 
               cursor: "pointer",
+
+              fontFamily: "EnchantedLand",
             }}
           >
             About

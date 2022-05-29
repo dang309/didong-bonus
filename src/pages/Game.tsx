@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { data } from "../constants/data";
 import TinderCard from "react-tinder-card";
 
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+
 type MouseCoordinateType = {
   x: number;
   y: number;
@@ -94,7 +96,11 @@ const Game = () => {
               />
 
               <Box sx={{ position: "absolute", top: "8%", left: "4%" }}>
-                <Typography>{data[questionIdx].dialogContent}</Typography>
+                <Typography
+                  sx={{ fontFamily: "Trattatello", fontSize: "16px" }}
+                >
+                  {data[questionIdx].dialogContent}
+                </Typography>
               </Box>
             </Box>
           </Box>
@@ -141,12 +147,35 @@ const Game = () => {
                   alignItems: "center",
                 }}
               >
-                <Box sx={{ width: "80%", height: "80%" }}>
-                  <Typography sx={{ paddingLeft: 2 }}>
+                <Box
+                  sx={{
+                    width: "70%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: "Trattatello",
+                      fontSize: "16px",
+                    }}
+                  >
                     {data[questionIdx].question}
                   </Typography>
 
-                  <Box />
+                  <Stack direction="row">
+                    <TipsAndUpdatesIcon />
+                    <Typography
+                      sx={{
+                        fontFamily: "Trattatello",
+                        fontSize: "16px",
+                      }}
+                    >
+                      {data[questionIdx].info}
+                    </Typography>
+                  </Stack>
                 </Box>
 
                 <Box>
@@ -179,21 +208,6 @@ const Game = () => {
             />
           </Box>
         </TinderCard>
-
-        {/* <Box
-          sx={{
-            position: "absolute",
-            top: "10%",
-            height: "80%",
-            width: "100%",
-
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          here
-        </Box> */}
 
         <Box
           sx={{
